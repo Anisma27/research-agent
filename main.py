@@ -1,22 +1,23 @@
+@"
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from agent import run_agent
- 
+
 app = FastAPI(title="Research Agent")
- 
- 
+
+
 class AskRequest(BaseModel):
     question: str
- 
- 
+
+
 @app.get("/", response_class=HTMLResponse)
 def root():
     with open("static/index.html") as f:
         return f.read()
- 
- 
+
+
 @app.post("/ask")
 def ask(req: AskRequest):
     session = run_agent(req.question, max_iterations=6, verbose=False)
@@ -30,3 +31,4 @@ def ask(req: AskRequest):
         "iterations_used": session["iterations_used"],
         "error_detail": error_detail,
     }
+"@ | Out-File -FilePath main.py -Encoding utf8
