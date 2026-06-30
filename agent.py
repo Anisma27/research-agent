@@ -114,6 +114,7 @@ def run_agent(question, max_iterations=6, verbose=True):
         try:
             raw = call_llm(messages)
         except Exception as e:
+            print(f"[agent error] iter {i}: {e}", flush=True)
             transcript.append({"iter": i, "error": str(e)})
             break
 
