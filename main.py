@@ -1,4 +1,3 @@
-@"
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
@@ -31,4 +30,3 @@ def ask(req: AskRequest):
         "iterations_used": session["iterations_used"],
         "error_detail": error_detail,
     }
-"@ | Out-File -FilePath main.py -Encoding utf8
