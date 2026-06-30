@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Research Agent</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 700px; margin: 60px auto; padding: 0 20px; color: #1a1a1a; }
+  h1 { font-size: 1.4rem; }
+  textarea { width: 100%; padding: 10px; font-size: 1rem; box-sizing: border-box; }
+  button { margin-top: 10px; padding: 8px 16px; font-size: 1rem; cursor: pointer; }
+  #answer { margin-top: 24px; white-space: pre-wrap; line-height: 1.5; }
+  #status { color: #666; margin-top: 10px; }
+</style>
+</head>
+<body>
+  <h1>Research Agent</h1>
+  <p>Ask a question. The agent searches the web and synthesizes a cited answer.</p>
+  <textarea id="question" rows="3" placeholder="What are the latest developments in fusion energy?"></textarea>
+  <br>
+  <button id="askBtn">Ask</button>
+  <div id="status"></div>
+  <div id="answer"></div>
+
+  <script>
+    const btn = document.getElementById("askBtn");
+    const status = document.getElementById("status");
+    const answer = document.getElementById("answer");
+    const question = document.getElementById("question");
+
+    btn.addEventListener("click", async () => {
+      const q = question.value.trim();
+      if (!q) return;
+      btn.disabled = true;
+      status.textContent = "Researching... this can take 20-40 seconds.";
+      answer.textContent = "";
+      try {
+        const res = await fetch("/ask", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ question: q })
+        });
+        const data = await res.json();
+        status.textContent = data.finished
+          ? `Done (${data.iterations_used} steps).`
+          : `Reached iteration limit (${data.iterations_used} steps).`;
+        answer.textContent = data.answer;
+      } catch (e) {
+        status.textContent = "Error: " + e.message;
+      }
+      btn.disabled = false;
+    });
+  </script>
+</body>
+</html>

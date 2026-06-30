@@ -1,0 +1,32 @@
+[
+  {
+    "id": "current_event_basic",
+    "question": "What are the latest developments in fusion energy?",
+    "max_iterations_allowed": 8,
+    "min_urls_cited": 1
+  },
+  {
+    "id": "factual_lookup",
+    "question": "Who is the current CEO of OpenAI?",
+    "max_iterations_allowed": 6,
+    "min_urls_cited": 1
+  },
+  {
+    "id": "comparison_question",
+    "question": "What is the difference between Python and JavaScript for web development?",
+    "max_iterations_allowed": 6,
+    "min_urls_cited": 0
+  },
+  {
+    "id": "technical_topic",
+    "question": "What are the main approaches to retrieval augmented generation in 2025?",
+    "max_iterations_allowed": 8,
+    "min_urls_cited": 1
+  },
+  {
+    "id": "narrow_niche_topic",
+    "question": "What is the current status of the SRM Institute of Science and Technology placement statistics for 2025?",
+    "max_iterations_allowed": 6,
+    "min_urls_cited": 0
+  }
+]
